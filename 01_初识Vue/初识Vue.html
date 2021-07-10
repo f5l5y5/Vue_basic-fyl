@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初识Vue</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>Hello,{{what}}</h1>
+        <h1>{{school.name.toUpperCase()}}</h1>
+        <h1>我学的是：{{school.subject()}}</h1>
+    </div>
+    <script>
+        // 使用new调用 this指向的是实例对象
+        new Vue({
+            // el指定当前的Vue实例为哪个容器服务
+            el:"#root",
+            // data 是存储数据的地方 值为对象
+            data:{
+                what:"world!",
+                school:{
+                    name:"fyl",
+                    address:"suzhou",
+                    subject:()=>'front-end'
+                }
+            },
+        })
+    </script>
+</body>
+</html>
