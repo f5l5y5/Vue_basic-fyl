@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例-watch实现</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+
+
+<!-- 进行双向数据绑定 -->
+    <div id="root">
+       <input type="text" v-model="firstName"> <br>
+       <input type="text" v-model="lastName"><br>
+        <span>全名:{{fullName}}</span>
+       <input type="text" v-model="fullName">
+    </div>
+    <script>
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                firstName:"张",
+                lastName:"三",
+                // fullName:'张-三',
+                fullName:''
+            },
+            watch:{
+                // firstName(newVal,oldVal){
+                //     console.log(newVal,oldVal);
+                //     this.fullName = newVal + '-' + this.lastName
+                // },
+                // 完整写法
+                // firstName:{
+                //     immediate:true,
+                //     handler(newVal){
+                //         this.fullName = newVal + '-' + this.lastName
+                //     }
+                // },
+                lastName(newVal){
+                    this.fullName = this.firstName + '-' +newVal;
+                }
+            }
+        });
+        vm.$watch('firstName',{
+            immediate:true,
+            handler(newVal,oldVal){
+                setTimeout(()=>{
+                    this.fullName = newVal + '-' + this.lastName
+                },1000)
+            }
+        })
+    </script>
+</body>
+</html>
