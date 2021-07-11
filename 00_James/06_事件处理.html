@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件处理</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+
+
+
+    <div id="root">
+        <h2>{{title}}</h2>
+        <button v-on:click="btnClick">点我打印（v-on:）</button>
+        <button v-on:click="btnClick">点我打印(@:)</button>
+        <!-- 给$event进行占位 -->
+        <button v-on:click="btnClick1(666,$event)">点我打印(传递参数)</button>
+        <!-- 阻止默认行为 -->
+        <a href="http://www.baidu.com" v-on:click.prevent="show">点我提示（阻止默认行为）</a>
+        <!-- 阻止冒泡 -->
+        <div @click="show1">
+            <button @click.stop="show1">阻止冒泡</button>
+            <a href="http://www.baidu.com" @click.stop.prevent="show1">阻止默认行为和冒泡行为</a>
+        </div>
+        <!-- 键盘事件  常用enter和esc-->
+        <input type="text" @keyup.enter="show2" placeholder="输入回车提示数据">
+        <!-- 字符编码可以 -->
+        <!-- <input type="text" @keyup.13="show2" placeholder="提示数据"> -->
+        <input type="text" @keyup.arrow-left="show2" placeholder="按下左箭头提示数据">
+        <!-- <input type="text" @keyup.arrow-left="show2" placeholder="输入回车提示数据"> -->
+
+
+    </div>
+    <script>
+     var app = new Vue({
+         el:"#root",
+         data:{
+            title:"事件处理的几种方法",
+         },
+         methods:{
+            btnClick(e){
+                console.log(e.target.innerText);
+                console.log("点击打印");
+            },
+            btnClick1(num,e){
+                console.log(e);
+                console.log(num);
+                console.log("点击打印");
+            },
+            show(e){
+                // 原生提供
+                // e.preventDefault();
+                console.log("阻止默认行为");
+            },
+            show1(e){
+                // e.stopPropagation();
+                console.log("冒泡了");
+            },
+            show2(e){
+                console.log(e.key);
+                // if(e.keyCode!=13)return;//原始写法
+                console.log(e.target.value);
+            }
+         },
+     })
+
+    </script>
+</body>
+
+</html>
