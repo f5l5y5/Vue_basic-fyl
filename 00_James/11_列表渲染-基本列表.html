@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本列表</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+
+</head>
+
+<body>
+    <div id="root">
+        <!-- v-for遍历数组 -->
+        <ul>
+            <li v-for="(p,index) in persons" :key="p.id">{{p.name}}--{{p.sex}}--{{p.age}}</li>
+        </ul>
+        <!-- v-for遍历对象 -->
+        <ol>
+            <li v-for="(value,key) in car" :key="value">{{value}}</li>
+        </ol>
+        <!-- v-for遍历字符串 -->
+        <ol>
+            <li v-for="(value,index) in str" :key="value">{{value}}---{{index}}</li>
+        </ol>
+        <!-- v-for遍历数字 -->
+        <ol>
+            <li v-for="(value,index) in num" :key="value">{{value}}---{{index}}</li>
+        </ol>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                persons: [{
+                    id: '001',
+                    name: '老刘',
+                    age: 20,
+                    sex: '男'
+                },
+                {
+                    id: '002',
+                    name: '老李',
+                    age: 19,
+                    sex: '女'
+                },
+                {
+                    id: '003',
+                    name: '老王',
+                    age: 18,
+                    sex: '男'
+                },
+                {
+                    id: '004',
+                    name: '老张',
+                    age: 17,
+                    sex: '女'
+                },
+                ],
+                car: {
+                    name: '奔驰c63',
+                    price: '60万',
+                    color: '灰色'
+                },
+                str: 'abcde',
+                num:5,
+
+            }
+        })
+    </script>
+</body>
+
+</html>

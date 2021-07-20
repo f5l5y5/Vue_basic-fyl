@@ -8,33 +8,21 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
 <body>
-    <!-- 
-        Vue模板语法两大类：
-        1.插值语法
-            标签体内
-            {{xxx}}自动读取到data的属性
-        2.指令语法
-            解析标签
-
-
-
-     -->
-
-
     <div id="root">
         <h2>插值语法</h2>
         <h4>{{msg}}</h4>
+        <h4>{{msg.toUpperCase()}}</h4>
         <h2>指令语法</h2>
-        <!-- 属性是动态的必须要使用v-bind:href="" -->
+        <!-- 静态属性直接写 或者绑定使用v-bind后使用字符串 -->
+        <a :href="'http://www.baidu.com'">动态绑定属性是字符串</a>
+        <!-- 属性是动态的必须要使用v-bind:href="" 双引号中的内容是data中的变量-->
         <a v-bind:href="url">百度一下</a>
     </div>
     <script>      
-        new Vue({
-            
-            el:"#root",
-            
+        new Vue({           
+            el:"#root", 
             data:{
-                msg:"插值语法",
+                msg:"插值语法Insert",
                 url:"http://www.baidu.com",
             },
         })

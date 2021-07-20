@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板语法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>{{x}}</h2>
+        <!-- 插值语句中调用methods方法，需要加括号进行调用 -->
+        <h2>{{mf()}}</h2>
+        <!-- computed计算属性在插值语句中，不需要括号 -->
+        <h2>{{cf}}</h2>
+        <button @click="mf">点我调用mf方法</button>
+        <button @click="mf()">点我调用mf方法</button>
+        展示x的值：<input type="text" v-model="x">
+    </div>
+    <script>
+        const vm = new Vue({
+            el:"#root",//指定vm为哪个容器服务
+            data:{//驱动页面显示的数据都放在这里
+                x:100,//x最终会通过数据代理的方式放在vm身上
+            },
+            methods: {//所有用到的函数都配置在这里
+                mf(){//mf直接被放在vm身上
+                    console.log("方法中的函数mf被调用了");
+                    // return 返回的是在h2中显示的内容
+                    return 200;
+                }
+            },
+            computed:{
+                cf:{//cf直接被放在vm身上了
+                   set(value){//cf的值被改变时，set执行，set中的this是vm，set会收到修改的值
+                       console.log("有人修改了cf，修改的值为："+value);
+                   } ,
+                   get(){//cf的值被读取时，或z依赖的值发生变化时，get执行，get中的this是vm，前提是：页面中要用到z
+                    console.log("get被调用了");
+                    return this.x*2+1;
+                   }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

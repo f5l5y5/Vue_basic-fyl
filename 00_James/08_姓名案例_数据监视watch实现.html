@@ -14,43 +14,52 @@
     <div id="root">
        <input type="text" v-model="firstName"> <br>
        <input type="text" v-model="lastName"><br>
-        <span>全名:{{fullName}}</span>
-       <input type="text" v-model="fullName">
+        <span>全名:{{fullName}}</span><br>
     </div>
     <script>
-        const vm = new Vue({
-            el:"#root",
-            data:{
-                firstName:"张",
-                lastName:"三",
-                // fullName:'张-三',
-                fullName:''
-            },
-            watch:{
-                // firstName(newVal,oldVal){
-                //     console.log(newVal,oldVal);
-                //     this.fullName = newVal + '-' + this.lastName
-                // },
-                // 完整写法
-                // firstName:{
-                //     immediate:true,
-                //     handler(newVal){
-                //         this.fullName = newVal + '-' + this.lastName
-                //     }
-                // },
-                lastName(newVal){
-                    this.fullName = this.firstName + '-' +newVal;
-                }
-            }
-        });
-        vm.$watch('firstName',{
-            immediate:true,
-            handler(newVal,oldVal){
-                setTimeout(()=>{
-                    this.fullName = newVal + '-' + this.lastName
-                },1000)
-            }
-        })
+       const vm = new Vue({
+           el:"#root",
+           data:{
+               firstName:'张',
+               lastName:'三',
+               fullName:''
+           },
+           watch:{
+            /* 
+						1.watch中的firstName什么时候调用？data中的firstName被改变的时调用
+						2.watch中的firstName的this是谁？---vm
+			*/
+            // 监测姓-----精简写法
+            //    firstName(newVal,oldVal){
+            //        console.log('firstName被修改',newVal,oldVal);
+            //        this.fullName = newVal+'-'+this.lastName;
+            //    },
+            //监测名-----精简写法
+            //    lastName(newVal,oldVal){
+            //        console.log('lastName被修改',newVal,oldVal);
+            //        this.fullName=this.firstName+'-'+newVal
+            //    },
+            //监测姓-----完整写法  
+            //    完整写法
+               firstName:{
+                   immediate:true,
+                    handler(newVal,oldVal){
+                        this.fullName=newVal+'-'+this.lastName
+                    }
+               }
+
+           }
+
+       });
+       //监测名-----完整写法
+       vm.$watch('lastName',{
+           immediate:true,//若immediate为true则handler在初始化时，就会调用一次，以后就看firstName的改变了
+           handler(newVal,oldVal){
+               setTimeout(()=>{
+                   this.fullName = this.firstName+'-'+newVal;
+               },2000)
+           }
+       })
     </script>
 </body>
 </html>

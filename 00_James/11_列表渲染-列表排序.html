@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="root">
+        <!-- 
+		想要对数据加工后再展示，且不想破坏原数据，最好用计算属性。
+	-->
+        <input type="text" v-model="keyWord" placeholder="请输入姓名">
+        <button @click="sortType=1">年龄升序↑</button>
+        <button @click="sortType=2">年龄降序↓</button>
+        <button @click="sortType=0">原顺序</button>
+        <ul>
+            <li v-for="(p,index) in fmtPersons" :key="p.id">
+                {{p.name}}---{{p.sex}}---{{p.age}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#root",
+           
+            data:{
+                keyWord:'',
+                sortType:0, //0原顺序 1升序 2降序
+                persons: [{
+						id: '001',
+						name: '马冬梅',
+						age: 35,
+						sex: '女'
+					},
+					{
+						id: '002',
+						name: '周冬雨',
+						age: 20,
+						sex: '女'
+					},
+					{
+						id: '003',
+						name: '周杰伦',
+						age: 41,
+						sex: '男'
+					},
+					{
+						id: '004',
+						name: '温兆伦',
+						age: 25,
+						sex: '男'
+					},
+				]
+            },
+            computed:{
+                fmtPersons(){
+                    // 1.获取data中的数据
+                    const {
+                        persons,
+                        keyWord,
+                        sortType
+                    }=this;
+                    // 2.根据关键词过滤
+                    let arr = persons.filter(p=>p.name.indexOf(keyWord)!==-1)
+
+                    // 3.按需要排序为0时不进行排序
+                    if(sortType){
+                        arr.sort((a,b)=>{
+                            // 排序时进行判断如果为1则升序
+                            if(sortType===1){
+                                return a.age-b.age;
+                            //为2进行降序 
+                            }else{
+                                return b.age-a.age;
+                            }
+                        })
+                    }
+                    return arr;
+                }
+            },
+        });
+    </script>
+</body>
+</html>

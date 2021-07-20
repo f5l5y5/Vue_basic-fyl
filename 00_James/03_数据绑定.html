@@ -12,15 +12,19 @@
 
 
     <div id="root">
-       单项数据绑定(v-bind)：<input type="text" :value="msg">
+        <p>{{msg}}</p>
+       <!-- 单项数据绑定(v-bind)：<input type="text" :value="msg"><br> -->
        <!-- v-model:value="msg" 针对表单类元素-->
-       双向数据绑定(v-model)：<input type="text" v-model="msg">
+       <!-- 双向数据绑定(v-model)：<input type="text" v-model="msg"><br> -->
+       <!-- 双向数据绑定(v-model)：<input type="text" v-model:value="msg"> -->
+       <!-- v-model 的底层原理  -->
+       <input type="text" :value="msg" v-on:input="msg=$event.target.value">
     </div>
     <script>
         new Vue({
             el:"#root",
             data:{
-                msg:"数据绑定",
+                msg:"",
             }
         });
         

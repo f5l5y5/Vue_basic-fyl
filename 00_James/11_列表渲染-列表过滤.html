@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本列表</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+
+</head>
+
+<body>
+    <div id="root">
+        <input type="text" v-model="keyWord">
+        <!-- <ol>
+            <li v-for="(p,index) in fmtPersons" >{{p.name}}---{{p.sex}}---{{p.age}}</li>
+        </ol> -->
+        <!-- watch方法 -->
+        <ol>
+            <li v-for="(p,index) in arr" >{{p.name}}---{{p.sex}}---{{p.age}}</li>
+        </ol>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                keyWord: '',
+                persons: [{
+                    id: '001',
+                    name: '马冬梅',
+                    age: 35,
+                    sex: '女'
+                },
+                {
+                    id: '002',
+                    name: '周冬雨',
+                    age: 20,
+                    sex: '女'
+                },
+                {
+                    id: '003',
+                    name: '周杰伦',
+                    age: 41,
+                    sex: '男'
+                },
+                {
+                    id: '004',
+                    name: '温兆伦',
+                    age: 25,
+                    sex: '男'
+                },
+                ],
+                // watch监视存储的数组
+                arr:[]
+            },
+            // computed:{
+            //     fmtPersons(){
+            //         return this.persons.filter(p=>p.name.indexOf(this.keyWord)!==-1)
+            //     }
+            // },
+            // 在watch中修改原数据
+            // watch:{
+            //     keyWord(value){
+            //         this.arr = this.persons.filter(p=>p.name.indexOf(value)!==-1) ;
+            //         console.log(arr);
+            //     }
+            // }
+            watch:{
+                keyWord:{
+                    immediate:true,
+                    handler(value){
+                        this.arr = this.persons.filter((item)=>item.name.indexOf(value)!==-1);
+                    }
+                }
+            }
+
+
+        })
+    </script>
+</body>
+
+</html>
