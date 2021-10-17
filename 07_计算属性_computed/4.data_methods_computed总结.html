@@ -9,7 +9,7 @@
 		<!-- 准备好一个容器-->
 		<div id="root">
 			<h2>{{x}}</h2>
-			<h2>{{y()}}</h2>
+			<h2>{{y(1)}}</h2>
 			<h2>{{z}}</h2>
 			<button @click="y">点我调用y方法</button> <br/><br/>
 			<button @click="y()">点我调用y方法</button> <br/><br/>
@@ -23,9 +23,9 @@
 					x:100 //x最终会通过数据代理的方式放在vm身上
 				},
 				methods:{ //所有用到的函数都配置在这里
-					y(){ //y直接被放在vm身上
-						console.log('y被调用了')
-						return 200
+					y(x){ //y直接被放在vm身上
+						console.log('y被调用了'+x)
+						return 200+x
 					}
 				},
 				computed:{
